@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:personal_fit/modules/personals/presentation/pages/personal_simulation_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../data/datasources/personal_remote_ds.dart';
 import '../../data/repositories/personal_repository_impl.dart';
 import '../../domain/entities/personal_entity.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../controllers/personal_controller.dart';
 
 
@@ -78,22 +79,28 @@ class PersonalDetailPage extends StatelessWidget {
               subtitle: Text('+55 ${personal.whatsapp}'),
             ),
             const SizedBox(height: 20),
+
             ElevatedButton.icon(
               icon: const Icon(Icons.message),
               label: const Text('Falar no WhatsApp'),
               onPressed: () async {
-                final url = Uri.parse('https://wa.me/55${personal.whatsapp}');
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                } else {
+                final phone = personal.whatsapp.replaceAll(RegExp(r'\D'), '');
+                final uri = Uri.parse('https://api.whatsapp.com/send?phone=55$phone');
+
+                try {
+                  await launchUrl(uri, mode: LaunchMode.externalApplication);
+                } catch (e) {
+                  print('Erro ao tentar abrir WhatsApp: $e');
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Não foi possível abrir o WhatsApp')),
                   );
                 }
               },
-
               style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(45)),
             ),
+
+
+
             const SizedBox(height: 12),
             OutlinedButton(
               child: const Text('Quero contratar'),
