@@ -1,6 +1,7 @@
-// personal_controller.dart
+import '../../data/models/contact_interest_model.dart';
 import '../../domain/entities/personal_entity.dart';
 import '../../domain/repositories/personal_repository.dart';
+
 
 class PersonalController {
   final PersonalRepository repository;
@@ -17,5 +18,10 @@ class PersonalController {
       final specialtyMatch = specialtyFilter == null || p.specialties.contains(specialtyFilter);
       return nameMatch && specialtyMatch;
     }).toList();
+  }
+
+  // ADICIONE ESTE NOVO MÉTODO:
+  Future<void> sendContactInterest(ContactInterestModel interest) async {
+    await repository.sendContactInterest(interest);
   }
 }

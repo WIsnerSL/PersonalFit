@@ -10,7 +10,7 @@ abstract class PersonalRemoteDatasource {
 }
 
 class PersonalRemoteDatasourceImpl implements PersonalRemoteDatasource {
-  final String baseUrl = 'http://10.0.2.2:3000'; //
+  final String baseUrl = 'http://10.0.2.2:3000';
 
   @override
   Future<List<Personal>> fetchAll() async {
@@ -24,15 +24,22 @@ class PersonalRemoteDatasourceImpl implements PersonalRemoteDatasource {
       throw Exception('Erro ao buscar os personal trainers');
     }
   }
-  Future<void> sendContactInterest(ContactInterestModel interest) async {
-    final url = Uri.parse('$baseUrl/contact-interest');
+
+  @override
+  Future<void> sendContactInterest(ContactInterestModel model) async {
+    final url = Uri.parse('$baseUrl/contactInterest');
+    print('Enviando POST para $url com: ${model.toJson()}');
+
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(interest.toJson()),
+      body: jsonEncode(model.toJson()),
     );
 
-    if (response.statusCode != 201 && response.statusCode != 200) {
+    print('Status: ${response.statusCode}');
+    print('Body: ${response.body}');
+
+    if (response.statusCode != 201) {
       throw Exception('Erro ao enviar interesse de contato');
     }
   }

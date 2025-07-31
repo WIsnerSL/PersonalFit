@@ -2,14 +2,12 @@ class ContactInterestModel {
   final String personalId;
   final String modality;
   final String frequency;
-  final String userName;
   final double estimatedPrice;
 
   ContactInterestModel({
     required this.personalId,
     required this.modality,
     required this.frequency,
-    required this.userName,
     required this.estimatedPrice,
   });
 
@@ -18,7 +16,7 @@ class ContactInterestModel {
       'personalId': personalId,
       'modality': modality,
       'frequency': frequency,
-      // 'userName': userName, // Nos requisitos não tem registro pro "userName"
+      //'userName': userName, // Não tem nada nos requisitos falando pra ter um userName
       'estimatedPrice': estimatedPrice,
     };
   }

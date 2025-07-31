@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fit/modules/personals/presentation/pages/personal_simulation_page.dart';
+import '../../data/datasources/personal_remote_ds.dart';
+import '../../data/repositories/personal_repository_impl.dart';
 import '../../domain/entities/personal_entity.dart';
-import 'personal_simulation_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../controllers/personal_controller.dart';
 
 
 
@@ -95,10 +98,19 @@ class PersonalDetailPage extends StatelessWidget {
             OutlinedButton(
               child: const Text('Quero contratar'),
               onPressed: () {
+                final controller = PersonalController(
+                  PersonalRepositoryImpl(
+                    PersonalRemoteDatasourceImpl(),
+                  ),
+                );
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => PersonalSimulationPage(personal: personal),
+                    builder: (_) => PersonalSimulationPage(
+                      personal: personal,
+                      controller: controller,
+                    ),
                   ),
                 );
               },

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../data/models/contact_interest_model.dart';
 import '../../domain/entities/personal_entity.dart';
+import '../controllers/personal_controller.dart';
 
 class PersonalSimulationPage extends StatefulWidget {
   final Personal personal;
+  final PersonalController controller;
 
-  const PersonalSimulationPage({super.key, required this.personal});
+  const PersonalSimulationPage({
+    super.key,
+    required this.personal,
+    required this.controller,
+  });
 
   @override
   State<PersonalSimulationPage> createState() => _PersonalSimulationPageState();
@@ -22,24 +29,41 @@ class _PersonalSimulationPageState extends State<PersonalSimulationPage> {
     return sessions * widget.personal.price;
   }
 
-  void sendContactInterest() {
+  void sendContactInterest() async {
     final estimated = calculateEstimatedPrice();
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Interesse enviado!'),
-        content: Text('Você demonstrou interesse em contratar ${widget.personal.name} '
-            'para aulas $selectedModality com frequência de $selectedFrequency por semana. '
-            'Valor estimado: R\$ ${estimated.toStringAsFixed(2)}'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-            child: const Text('Fechar'),
-          ),
-        ],
 
-      ),
+    final interest = ContactInterestModel(
+      personalId: widget.personal.id.toString(),
+      modality: selectedModality!,
+      frequency: selectedFrequency!,
+      estimatedPrice: estimated,
     );
+    print('Enviando interesse: ${interest.toJson()}');
+
+    try {
+      await widget.controller.sendContactInterest(interest);
+
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Interesse enviado!'),
+          content: Text(
+              'Você demonstrou interesse em contratar ${widget.personal.name} '
+                  'para aulas $selectedModality com frequência de $selectedFrequency por semana. '
+                  'Valor estimado: R\$ ${estimated.toStringAsFixed(2)}'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+              child: const Text('Fechar'),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao enviar interesse: $e')),
+      );
+    }
   }
 
   @override

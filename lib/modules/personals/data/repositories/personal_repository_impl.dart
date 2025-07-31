@@ -12,7 +12,8 @@ class PersonalRepositoryImpl implements PersonalRepository {
   Future<List<Personal>> getAll() => datasource.fetchAll();
 
   @override
-  Future<void> sendContactInterest(ContactInterestModel interest) {
-    return datasource.sendContactInterest(interest);
+  Future<void> sendContactInterest(ContactInterestModel model) {
+    return datasource.sendContactInterest(model);
   }
+
 }

@@ -4,7 +4,10 @@
       "id": "1",
       "name": "Amanda Costa",
       "bio": "Especialista em emagrecimento feminino.",
-      "specialties": ["Emagrecimento", "Funcional"],
+      "specialties": [
+        "Emagrecimento",
+        "Funcional"
+      ],
       "rating": 4.8,
       "city": "Goiânia",
       "state": "GO",
@@ -16,7 +19,10 @@
       "id": "2",
       "name": "Carlos Eduardo",
       "bio": "Focado em hipertrofia masculina e treinos intensivos.",
-      "specialties": ["Hipertrofia", "Musculação"],
+      "specialties": [
+        "Hipertrofia",
+        "Musculação"
+      ],
       "rating": 4.6,
       "city": "São Paulo",
       "state": "SP",
@@ -28,13 +34,33 @@
       "id": "3",
       "name": "Juliana Ferreira",
       "bio": "Atendimento online e personalizado para mulheres.",
-      "specialties": ["Treinamento Online", "Funcional", "Emagrecimento"],
+      "specialties": [
+        "Treinamento Online",
+        "Funcional",
+        "Emagrecimento"
+      ],
       "rating": 4.9,
       "city": "Belo Horizonte",
       "state": "MG",
       "photoUrl": "https://randomuser.me/api/portraits/women/3.jpg",
       "whatsapp": "31991234567",
       "price": 90
+    }
+  ],
+  "contactInterest": [
+    {
+      "id": "f8d3",
+      "personalId": "1",
+      "modality": "Presencial",
+      "frequency": "3x",
+      "estimatedPrice": 300
+    },
+    {
+      "id": "12fe",
+      "personalId": "2",
+      "modality": "Presencial",
+      "frequency": "3x",
+      "estimatedPrice": 360
     }
   ]
 }
