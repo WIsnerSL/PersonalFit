@@ -1,83 +1,123 @@
-# 💪 PERSONAL FIT
 
-Aplicativo Flutter desenvolvido como desafio técnico para exibir um catálogo de personal trainers com funcionalidades de filtro, simulação de contratação e contato via WhatsApp.
+# 💪 Personal Fit
+
+Aplicativo Flutter desenvolvido como desafio técnico para exibir um catálogo de personal trainers, com funcionalidades de filtro, simulação de contratação e contato via WhatsApp.
 
 ---
 
-## 🚀 COMO RODAR O PROJETO
+## 🚀 Como rodar o projeto
 
-### 1. Instale as dependências:
+### 1. Pré-requisitos
+
+- [Flutter 3.x](https://flutter.dev/docs/get-started/install)
+- [Node.js](https://nodejs.org/) com `npm`
+- Emulador Android ou dispositivo físico
+
+### 2. Clonar o repositório
+
 ```bash
-flutter pub get
-<<<<<<< HEAD
-flutter run
-=======
+git clone https://github.com/WIsnerSL/PersonalFit.git
+cd PersonalFit
 ```
 
-### 2. Inicie o mock server (JSON Server):
+### 3. Instalar dependências Flutter
+
+```bash
+flutter pub get
+```
+
+### 4. Executar o app
+
+```bash
+flutter run
+```
+
+---
+
+## 🔌 Como rodar o JSON Server (Mock API)
+
+### 1. Instalar `json-server` globalmente (se ainda não tiver)
+
 ```bash
 npm install -g json-server
+```
+
+### 2. Rodar o servidor com o arquivo `db.json`
+
+```bash
 json-server --watch db.json --port 3000
 ```
 
-> O servidor será iniciado em: [`http://localhost:3000`](http://localhost:3000)
+> O JSON Server rodará localmente em `http://localhost:3000`
 
-### 3. Execute o app:
-```bash
-flutter run
+---
+
+## 🧱 Arquitetura do Projeto
+
+O projeto segue a estrutura modular por domínio:
+
+```
+lib/
+├── core/
+├── modules/
+│   └── personals/
+│       ├── data/
+│       │   ├── datasources/     -> Comunicação com a API (Remote)
+│       │   ├── models/          -> Modelos que representam os dados externos
+│       │   └── repositories/    -> Implementações de repositórios
+│       ├── domain/
+│       │   ├── entities/        -> Entidades principais (ex: Personal)
+│       │   └── repositories/    -> Contratos (abstrações)
+│       └── presentation/
+│           ├── controllers/     -> Lógica de estado e interação
+│           └── pages/           -> Telas da aplicação
 ```
 
----
-
-## 🧱 ARQUITETURA DO PROJETO
-
-O projeto segue o padrão **Clean Architecture**, dividido em:
-
-- `data/`: Models, datasources e implementações
-- `domain/`: Entidades e contratos dos repositórios
-- `presentation/`: Páginas e controllers
-- `core/`: Constantes e utilitários globais (se necessário)
+- ✅ **Separação de responsabilidades**
+- ✅ **Fácil manutenção**
+- ✅ **Aderente à Clean Architecture (simplificada)**
 
 ---
 
-## 📱 FUNCIONALIDADES
+## 📱 Funcionalidades
 
 ### 1. 📋 Catálogo de Personais
 - Listagem de personal trainers
-- Exibe: nome, especialidades, cidade, estado e nota de avaliação
-- 🔍 Busca por nome _(a implementar)_
-- 🧩 Filtro por especialidades _(a implementar)_
+- Filtros (nome e especialidades — a implementar)
 
-### 2. 🧾 Tela de Detalhes
-- Foto, nome, localização, especialidades, biografia, preço e nota
-- Botão para abrir WhatsApp
-- Botão para simulação de contratação
+### 2. 📄 Detalhes do Personal
+- Foto, bio, preço, especialidades, avaliação e contato
 
 ### 3. 📊 Simulação de Contratação
-- Escolha de modalidade (`Online` ou `Presencial`)
-- Frequência semanal (`1x` a `5x`)
-- Cálculo estimado do valor mensal
-- Alerta visual de confirmação
+- Escolha de modalidade e frequência
+- Cálculo estimado do valor
+- Envio do interesse para a API
 
 ### 4. 💬 Contato via WhatsApp
-- Integração com WhatsApp via `url_launcher`
-- Abertura direta pelo link:
-```text
-https://wa.me/55<whatsapp_number>
-```
+- Link direto para abrir o WhatsApp:  
+  `https://wa.me/55<whatsapp_number>`
 
 ---
 
-## 🔗 MOCK API
+## 🌐 Mock API
 
 O projeto utiliza `json-server` como API fake:
 
-- `GET /personals` → Lista de personais
-- `POST /contactInterest` → Envia interesse
+- `GET /personals` → Lista de personal trainers
+- `POST /contactInterest` → Envia interesse de contratação
 
-> Link local da API: [`http://localhost:3000`](http://localhost:3000)
+📎 Link local da API: [`http://localhost:3000`](http://localhost:3000)
 
 ---
 
+## 🧪 Testado com:
 
->>>>>>> 5ef4e25 (Versão final)
+- ✅ Flutter 3.22.1
+- ✅ Android SDK API 33
+- ✅ json-server 0.17+
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por [WIsnerSL](https://github.com/WIsnerSL) — desafio técnico Flutter 💙
