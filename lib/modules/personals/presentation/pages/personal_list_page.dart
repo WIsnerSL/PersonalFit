@@ -16,6 +16,8 @@ class _PersonalListPageState extends State<PersonalListPage> {
   late Future<List<Personal>> _futurePersonals;
   List<Personal> _allPersonals = [];
   List<Personal> _filteredPersonals = [];
+  bool _isLoading = true;
+
 
   String _searchQuery = '';
   String? _selectedSpecialty;
@@ -27,12 +29,15 @@ class _PersonalListPageState extends State<PersonalListPage> {
   }
 
   void _loadPersonals() async {
+    setState(() => _isLoading = true);
     final personals = await widget.controller.getPersonals();
     setState(() {
       _allPersonals = personals;
       _filteredPersonals = personals;
+      _isLoading = false;
     });
   }
+
 
   void _filterPersonals() {
     setState(() {
@@ -69,7 +74,7 @@ class _PersonalListPageState extends State<PersonalListPage> {
               hint: const Text('Filtrar por especialidade'),
               isExpanded: true,
               items: [
-                const DropdownMenuItem(value: null, child: Text('Todas')),
+                const DropdownMenuItem(value: null, child: Text('Selecione a especialidade')),
                 ...[
                   'Emagrecimento',
                   'Funcional',
@@ -90,10 +95,13 @@ class _PersonalListPageState extends State<PersonalListPage> {
             ),
             const SizedBox(height: 12),
             Expanded(
-              child: _filteredPersonals.isEmpty
+              child: _allPersonals.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : _filteredPersonals.isEmpty
                   ? const Center(child: Text('Nenhum personal encontrado.'))
                   : ListView.builder(
-                itemCount: _filteredPersonals.length,
+
+              itemCount: _filteredPersonals.length,
                 itemBuilder: (context, index) {
                   final personal = _filteredPersonals[index];
                   return Card(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/personal_entity.dart';
 import 'personal_simulation_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 
 class PersonalDetailPage extends StatelessWidget {
@@ -76,10 +78,17 @@ class PersonalDetailPage extends StatelessWidget {
             ElevatedButton.icon(
               icon: const Icon(Icons.message),
               label: const Text('Falar no WhatsApp'),
-              onPressed: () {
+              onPressed: () async {
                 final url = Uri.parse('https://wa.me/55${personal.whatsapp}');
-
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Não foi possível abrir o WhatsApp')),
+                  );
+                }
               },
+
               style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(45)),
             ),
             const SizedBox(height: 12),
