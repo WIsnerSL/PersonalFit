@@ -33,13 +33,6 @@ class PersonalPage extends StatelessWidget {
                   value: personal.name,
                   iconColor: Colors.blue,
                 ),
-                const SizedBox(height: 16),
-                _buildInfoTile(
-                  icon: Icons.cake,
-                  label: 'Idade',
-                  value: '${personal.age} anos',
-                  iconColor: Colors.orange,
-                ),
               ],
             ),
           ),

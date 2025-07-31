@@ -1,7 +1,6 @@
 class Personal {
   final String id;
   final String name;
-  final int age;
 
   final String photoUrl;
   final String city;
@@ -15,7 +14,6 @@ class Personal {
   Personal({
     required this.id,
     required this.name,
-    required this.age,
     required this.photoUrl,
     required this.city,
     required this.state,
