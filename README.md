@@ -76,4 +76,9 @@ O projeto utiliza `json-server` como API fake:
 
 ---
 
+## Link do video de apresentação via driver
+
+> https://drive.google.com/drive/folders/1-XUZKOiIB1GXwDyF-AzMlqyqd5zp3MiK?usp=drive_link
+
+---
 
