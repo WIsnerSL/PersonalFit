@@ -20,7 +20,6 @@ class PersonalController {
     }).toList();
   }
 
-  // ADICIONE ESTE NOVO MÉTODO:
   Future<void> sendContactInterest(ContactInterestModel interest) async {
     await repository.sendContactInterest(interest);
   }
